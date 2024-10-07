@@ -1,0 +1,324 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "API para gerenciar usuários e projetos.",
+      "version": "1.0.0",
+      "title": "API de Usuários e Projetos"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Users",
+        "description": "Operações relacionadas a usuários"
+      },
+      {
+        "name": "Projects",
+        "description": "Operações relacionadas a projetos"
+      }
+    ],
+    "schemes": ["http"],
+    "paths": {
+      "/user": {
+        "get": {
+          "tags": ["Users"],
+          "summary": "Listar todos os usuários",
+          "responses": {
+            "200": {
+              "description": "Usuários listados com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/User"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro ao listar usuários"
+            }
+          }
+        },
+        "post": {
+          "tags": ["Users"],
+          "summary": "Criar um novo usuário",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Usuário criado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            },
+            "500": {
+              "description": "Erro ao criar usuário"
+            }
+          }
+        }
+      },
+      "/user/{id}": {
+        "get": {
+          "tags": ["Users"],
+          "summary": "Obter detalhes de um usuário",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuário encontrado",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            },
+            "404": {
+              "description": "Usuário não encontrado"
+            },
+            "500": {
+              "description": "Erro ao obter usuário"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Users"],
+          "summary": "Atualizar um usuário existente",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "user",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuário atualizado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/User"
+              }
+            },
+            "400": {
+              "description": "Campos obrigatórios não fornecidos"
+            },
+            "404": {
+              "description": "Usuário não encontrado"
+            },
+            "500": {
+              "description": "Erro ao atualizar usuário"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Users"],
+          "summary": "Deletar um usuário",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Usuário deletado com sucesso"
+            },
+            "404": {
+              "description": "Usuário não encontrado"
+            },
+            "500": {
+              "description": "Erro ao deletar usuário"
+            }
+          }
+        }
+      },
+      "/project": {
+        "get": {
+          "tags": ["Projects"],
+          "summary": "Listar todos os projetos",
+          "responses": {
+            "200": {
+              "description": "Projetos listados com sucesso",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Project"
+                }
+              }
+            },
+            "500": {
+              "description": "Erro ao listar projetos"
+            }
+          }
+        },
+        "post": {
+          "tags": ["Projects"],
+          "summary": "Criar um novo projeto",
+          "parameters": [
+            {
+              "name": "project",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Project"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Projeto criado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Project"
+              }
+            },
+            "500": {
+              "description": "Erro ao criar projeto"
+            }
+          }
+        }
+      },
+      "/project/{id}": {
+        "get": {
+          "tags": ["Projects"],
+          "summary": "Obter detalhes de um projeto",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Projeto encontrado",
+              "schema": {
+                "$ref": "#/definitions/Project"
+              }
+            },
+            "404": {
+              "description": "Projeto não encontrado"
+            },
+            "500": {
+              "description": "Erro ao obter projeto"
+            }
+          }
+        },
+        "put": {
+          "tags": ["Projects"],
+          "summary": "Atualizar um projeto existente",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "project",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Project"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Projeto atualizado com sucesso",
+              "schema": {
+                "$ref": "#/definitions/Project"
+              }
+            },
+            "400": {
+              "description": "Campos obrigatórios não fornecidos"
+            },
+            "404": {
+              "description": "Projeto não encontrado"
+            },
+            "500": {
+              "description": "Erro ao atualizar projeto"
+            }
+          }
+        },
+        "delete": {
+          "tags": ["Projects"],
+          "summary": "Deletar um projeto",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Projeto deletado com sucesso"
+            },
+            "404": {
+              "description": "Projeto não encontrado"
+            },
+            "500": {
+              "description": "Erro ao deletar projeto"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "João Silva"
+          },
+          "age": {
+            "type": "integer",
+            "example": 30
+          }
+        },
+        "required": ["name", "age"]
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Novo Projeto"
+          },
+          "description": {
+            "type": "string",
+            "example": "Descrição do projeto."
+          },
+          "assignedTo": {
+            "type": "string",
+            "example": "60d0fe4e9f1b2c001c4b3c60" 
+          }
+        },
+        "required": ["title", "description", "assignedTo"]
+      }
+    }
+  }
+  
