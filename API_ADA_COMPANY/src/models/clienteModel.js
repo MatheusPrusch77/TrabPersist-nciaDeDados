@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs'); // Adicionado bcrypt para hashing
 const Schema = mongoose.Schema;
 
 const clienteSchema = new Schema({
-    _id: { type: Number, required: true }, // O ID será um número conforme o exemplo
     nomeCliente: { type: String, required: true, max: 100 },
     telefone: { type: String, required: true },
     endereco: { type: String, required: true },
     localizacao: {
         type: {
-            type: String, // Tipo de localização (Point)
-            enum: ['Point'], // Só aceita 'Point'
+            type: String,
+            enum: ['Point'],
             required: true
         },
         coordinates: {
-            type: [Number], // Array de números [longitude, latitude]
+            type: [Number],
             required: true
         }
     },
@@ -27,13 +27,22 @@ const clienteSchema = new Schema({
     estado: { type: String, required: true },
     ddd: { type: String, required: true },
     usuario: {
-        email: { type: String, required: true },
-        senha: { type: String, required: true },
-        tipoUsuario: { type: String, required: true },
+        email: { type: String, required: true, unique: true },
+        senha: { type: String, required: true, minlength: 6 }, // Adicionado minlength
+        tipoUsuario: { type: String, required: true, enum: ['cliente', 'admin'] },
         telefone: { type: String, required: true },
         nomeCompleto: { type: String, required: true }
     }
 });
 
-// Exportar o modelo
+// Middleware para hash de senha
+clienteSchema.pre('save', async function (next) {
+    if (!this.isModified('usuario.senha')) {
+        return next();
+    }
+    const salt = await bcrypt.genSalt(10);
+    this.usuario.senha = await bcrypt.hash(this.usuario.senha, salt);
+    next();
+});
+
 module.exports = mongoose.model('Cliente', clienteSchema);

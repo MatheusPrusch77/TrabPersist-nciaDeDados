@@ -12,7 +12,6 @@ exports.getClientes = async function (req, res) {
 exports.create = async function (req, res) {
     try {
         let cliente = new Cliente({
-            _id: req.body._id,
             nomeCliente: req.body.nomeCliente,
             telefone: req.body.telefone,
             endereco: req.body.endereco,

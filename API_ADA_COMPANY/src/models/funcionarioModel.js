@@ -63,7 +63,7 @@ let funcionarioSchema = new Schema({
     },
     idUsuario: {
         type: Number,
-        required: true
+        required: true // Associado ao modelo de Usuario para autenticação
     },
     chatBot: [chatBotSchema]
 });
